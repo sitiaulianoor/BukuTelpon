@@ -2,25 +2,69 @@
 
      
       <!-- Left side column. contains the logo and sidebar -->
+
       <aside class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
+          <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
           <!-- Sidebar user panel -->
-           
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="dist/img/user.png" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Admin</p>
+
+              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+          </div>
+          
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
+              
+            </li>
+
             <li>
-              <a href="index.php">
-                 <i class="fa fa-home"></i> <span>Dashboard</span>
+              <a href="<?php $_SERVER[SCRIPT_NAME];?>?page=notel_penting">
+                <i class="fa fa-phone"></i> <span>No. Telp Penting</span>  
               </a>
-            </li> 
+            </li>
+
+            <li>
+              <a href="<?php $_SERVER[SCRIPT_NAME];?>?page=direksi">
+                <i class="fa fa-user"></i> <span>Dewan Komisaris dan Direksi</span>  
+              </a>
+            </li>
+
             <li class="active" >
               <a href="<?php $_SERVER[SCRIPT_NAME];?>?page=anggota">
-                <i class="fa fa-user"></i> <span>Phone Book</span>  
+                <i class="fa fa-book"></i> <span>Phone Book</span>  
               </a>
             </li> 
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-table"></i> <span>Petunjuk </span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+
+            <ul class="treeview-menu">
+             
+                <li><a href=<?php $_SERVER[SCRIPT_NAME];?>?page=telepon><i class="fa fa-circle-o"></i>Penggunaan Telepon</a></li>
+            </ul>
+            
+            <ul class="treeview-menu">
+             
+                <li><a href="<?php $_SERVER[SCRIPT_NAME];?>?page=feature"><i class="fa fa-circle-o"></i>Feature Pesawat Telepon </a></li>
+            </ul>
+
+
+            <li>
+              <a href="<?php $_SERVER[SCRIPT_NAME];?>?page=landing">
+                <i class="fa fa-clock-o"></i> <span>Logout</span>  
+              </a>
+            </li>
             
            
            </ul>
@@ -37,9 +81,8 @@
             
           </h1>
           <ol class="breadcrumb">
-            <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Phone Book</a></li>
-            <li class="active">List Anggot</li>
+            <li><a href=""><i class="fa fa-book"></i>Phone Book</a></li>
+            <li class="active">Data</li>
             
           </ol>
         </section>
@@ -51,7 +94,7 @@
             <?php
             
                         $id=$_GET['id'];
-                        $sql="SELECT  * FROM anggota where id='$id' ";
+                        $sql="SELECT  * FROM bukutelpon where id='$id' ";
                         
                         if (!$result=  mysqli_query($config, $sql)){
                         die('Error:'.mysqli_error($config));
@@ -73,46 +116,42 @@
                 <div class="col-md-12 form-group">
                     <label>Personnel No.</label>
                     <input readonly="" type="hidden" name="id" value="<?php echo $row['id'];?>" class="form-control" placeholder="Enter..." required="">
-                    <input type="text" name="personnel_no" value="<?php echo $row['personnel_no'];?>" class="form-control" placeholder="Enter..." required="">
+                    <input type="text" name="personnel_no" value="<?php echo $row['personnel_no'];?>" class="form-control" placeholder="Enter..." required="" disabled></input>
                     </div>  
 
                     <div class="col-md-12 form-group">
                          <label>Name</label>
-                         <textarea class="form-control" placeholder="Enter..." name="name" type="text"><?php echo $row['name'];?></textarea>
+                         <input type="text" class="form-control" placeholder="Enter..." name="name" value="<?php echo $row['name'];?>"required="" disabled></input>
                     </div>
 
-                    <div class="col-md-12 form-group">
-                         <label>Org. Unit</label>
-                         <textarea class="form-control" placeholder="Enter..." name="org_unit" type="text"><?php echo $row['org_unit'];?></textarea>
-                    </div>
+                    
 
                     <div class="col-md-12 form-group">
                          <label>Name of Org. Unit</label>
-                         <textarea class="form-control" placeholder="Enter..." name="org_name" type="text"><?php echo $row['org_name'];?></textarea>
-                    </div>
-
-
-                    <div class="col-md-12 form-group">
-                         <label>Cost Center</label>
-                         <textarea class="form-control" placeholder="Enter..." name="cost_ctr" type="text"><?php echo $row['cost_ctr'];?></textarea>
+                         <input readonly="" type="text" class="form-control" placeholder="Enter..." name="org_name" value="<?php echo $row['org_name'];?>"required="" disabled></input>
                     </div>
 
 
                     <div class="col-md-12 form-group">
                          <label>Department Name</label>
-                         <textarea class="form-control" placeholder="Enter..." name="dept_name" type="text"><?php echo $row['dept_name'];?></textarea>
+                         <input type="text" class="form-control" placeholder="Enter..." name="dept_name" value="<?php echo $row['dept_name'];?>"</input>
                     </div>
 
 
                     <div class="col-md-12 form-group">
                          <label>No. Ext Telpon</label>
-                         <textarea class="form-control" placeholder="Enter..." name="telp" type="text"><?php echo $row['telp'];?></textarea>
+                         <input type="text" onkeypress="return hanyaAngka(event)" class="form-control" placeholder="Enter..." name="telp" value="<?php echo $row['telp'];?>"</input>
+                    </div>
+
+                    <div class="col-md-12 form-group">
+                         <label>Telpon Rumah</label>
+                         <input type="text" onkeypress="return hanyaAngka(event)" class="form-control" placeholder="Enter..." name="telp_rumah" value="<?php echo $row['telp'];?>"</input>
                     </div>
 
 
 
                  <div class="col-md-12 form-group"> 
-                   <button type="submit" class="btn btn-primary btn-flat pull-right"><span class="fa fa-send"></span> Simpan</button>
+                   <button type="submit" class="btn btn-primary btn-flat pull-right" name="simpan"><span class="fa fa-send"></span> Simpan</button>
                  </div>
                 </div> 
                   </div></form>
@@ -126,7 +165,7 @@
           <!-- Default box -->
           <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title"> <a href="#" data-toggle="modal" data-target="#my-modal1" class="btn btn-info"><li class="fa fa-plus"></li> Tambah</a></h3>
+                <h3 class="box-title"> <a href="#" data-toggle="modal" data-target="#my-modal1" class="btn btn-info"><li class="fa fa-plus"></li> Add</a></h3>
               <div class="box-tools pull-right">
                  </div>
             </div>
@@ -139,13 +178,14 @@
                         <th>Name of Org. Unit</th>
                         <th>Department Name</th>
                         <th>No. Ext Telpon</th>
+                        <th>Telpon Rumah</th>
                         <th>Action</th>
                          
                       </tr>
                     </thead>
                     <tbody>
                     <?php
-                        $sql="SELECT  * FROM anggota";
+                        $sql="SELECT  * FROM bukutelpon";
                         $no=1;
                         if (!$result=  mysqli_query($config, $sql)){
                         die('Error:'.mysqli_error($config));
@@ -163,10 +203,11 @@
                       
                             <td><?php echo $row['dept_name'];?></td>
                             <td><?php echo $row['telp'];?></td>
+                            <td><?php echo $row['telp_rumah'];?></td>
                             
                             <td>
                                 <a href="<?php $_SERVER[SCRIPT_NAME] ;?>?page=anggota&id=<?php echo $row['id'];?>" class="btn btn-info"><li class="fa fa-pencil"></li> Edit</a> 
-                                <a href="aksi.php?sender=hapus&id=<?php echo $row['id']; ?>" class="btn btn-danger"><li class="fa fa-trash-o"></li> Hapus</a> 
+                                <a href="aksi.php?sender=hapus&id=<?php echo $row['id']; ?>" class="btn btn-danger"><li class="fa fa-trash-o"></li> Delete</a> 
                              </td>
                         </tr> 
                             <?php    
@@ -197,7 +238,7 @@
 <div class="modal-content">
 <div class="modal-header">
 
-<h4 class="modal-title" id="myModalLabel">Tambah Anggota</h4>
+<h4 class="modal-title" id="myModalLabel">Tambah Data Telpon</h4>
 </div>
    
 <div class="modal-body center"> 
@@ -235,7 +276,12 @@
 
      <div class="form-group">
       <label>No. Ext Telpon </label>
-      <input type="text" name="telp" class="form-control" placeholder="Enter ..."></input> 
+      <input type="text" onkeypress="return hanyaAngka(event)" name="telp" class="form-control" placeholder="Enter ..." ></input> 
+    </div>
+
+    <div class="form-group">
+      <label>Telpon Rumah </label>
+      <input type="text" onkeypress="return hanyaAngka(event)" name="telp_rumah" class="form-control" placeholder="Enter ..." ></input> 
     </div>
 </div>
 <div class="modal-footer">
@@ -252,4 +298,12 @@
       <!-- Content Wrapper. Contains page content -->
       
      
+<script type="text/javascript">
+  function hanyaAngka(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+    return false;
+    return true;
+}
+</script> 
 <?php include 'theme/footer.php'; ?>
